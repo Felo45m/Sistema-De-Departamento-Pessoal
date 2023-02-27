@@ -18,15 +18,31 @@ public class DepartamentoPessoal {
 		int id = gerarId();
 		System.out.println("Nome: ");
 		String nome = sc.nextLine();
+		if (!nome.matches("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$") || nome == null) {
+			throw new IllegalArgumentException("Nome inválido! Informe um nome válido.");
+		}
 		System.out.println("Endereço: (Rua, Bairro, Cidade): ");
 		String endereco = sc.nextLine();
+		String[] partes = endereco.split(",");
+		if (partes.length < 2) {
+			throw new IllegalArgumentException("Endereço inválido! Informe pelo menos Rua, Bairro e Cidade.");
+		}
 		System.out.println("Cargo: ");
 		String cargo = sc.nextLine();
+		if (cargo.trim().isEmpty()) {
+			throw new IllegalArgumentException("Cargo invalido! Informe um cargo válido.");
+		}
 		System.out.println("Sexo: ");
 		String sexo = sc.nextLine();
+		if (!sexo.equals("F") && !sexo.equals("M")) {
+			throw new IllegalArgumentException("Sexo inválido! Informe F ou M.");
+		}
 		System.out.println("Idade: ");
 		int idade = sc.nextInt();
 		sc.nextLine();
+		if (idade < 18 || idade > 100) {
+			throw new IllegalArgumentException("Idade inválida! Informe uma idade entre 18 e 100 anos.");
+		}
 		Funcionario funcionario = new Funcionario(id, nome, endereco, cargo, sexo, idade);
 		funcionarios.add(funcionario);
 		System.out.println("Funcionário cadastrado com sucesso!");
